@@ -9,27 +9,35 @@ import {useForm} from '@inertiajs/vue3';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: '/Add a Movie',
-        href: '/movies/create',
+        title: 'Edit a Review',
+        href: '/movies/edit',
     },
 ];
 
+
+
+interface Movie{
+    id:number,
+    name:string,
+    rating:string,
+    favorite:string
+}
+const props = defineProps<{movie:Movie}>()
 const form = useForm({
-  name: '',
-  rating: 0,
-  favorite: 'no',
+  name: props.movie.name,
+  rating: props.movie.rating,
+  favorite: props.movie.favorite,
 })
+
 
 const handleSubmit = ()=>{
 
-    form.post("/movies/post/",{
-        onSuccess:()=>{form.reset()}
-    })
+    form.put(route('movies.update',{movie:props.movie}))
 }
 </script>
 
 <template>
-    <Head title="Add a Movies" />
+    <Head title="Edit a review" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <form @submit.prevent="handleSubmit" class="flex flex-wrap flex-col gap-1">
@@ -72,7 +80,7 @@ const handleSubmit = ()=>{
             </Label>
             <select placeholder="yes/no" name="fav" id="fav" v-model="form.favorite" >
                 <option value="yes">Yes</option>
-                <option selected value="no">No</option>
+                <option value="no">No</option>
             </select>
             </div>
             
