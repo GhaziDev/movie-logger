@@ -17,10 +17,11 @@ const breadcrumbs: BreadcrumbItem[] = [
 const form = useForm({
   name: '',
   rating: 0,
-  favorite: false,
+  favorite: 'no',
 })
 
 const handleSubmit = ()=>{
+
     form.post("/movies/post/",{
         onSuccess:()=>{form.reset()}
     })

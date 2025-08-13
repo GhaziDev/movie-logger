@@ -20,11 +20,18 @@ class MovieController extends Controller
         $data = $request->validate([
             "name"=>["required","string"],
             "rating"=>["required","string"],
-            "favorite"=>["required","boolean"]
+            "favorite"=>["required","string"]
         ]);
 
+        if($data['favorite'] == 'yes'){
+            $data['favorite']= true;
+        }
+
+        $data['rating'] = (float)$data['rating'];
+        
+
         Movie::create($data);
-        return redirect().route("movies.index").with("message","Movie logged successfuly!");
+        return redirect()->route("movies.index")->with("message","Movie logged successfuly!");
 
     }
 }

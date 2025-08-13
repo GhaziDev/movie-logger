@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('movies', function (Blueprint $table) {
             $table->id();
             $table->string("name");
-            $table->string("rating")->default("0.5");
+            $table->float("rating")->default(0.5);
             $table->boolean("favorite")->default(false);
             $table->timestamps();
         });
